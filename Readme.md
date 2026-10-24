@@ -2,6 +2,14 @@
 
 A fully automated setup script and configuration bundle to replicate my personal Windows tiling and aesthetic environment (Komorebi, YASB, Rainmeter, Fastfetch, and custom PowerShell profile) on any machine.
 
+![Desktop Preview](assets/desktop-overview.png)
+![Desktop Preview](assets/Dock.png)
+![Desktop Preview](assets/Start_Menu.png)
+![Desktop Preview](assets/terminal-fastfetch.png)
+![Desktop Preview](assets/Wigets 1.png)
+![Desktop Preview](assets/Wigets 2.png)
+![Desktop Preview](assets/YASB.png)
+
 ---
 
 ## Included Components

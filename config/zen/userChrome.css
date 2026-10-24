@@ -1,0 +1,188 @@
+@import "sine-mods/Arc-2.0/userChrome.css";
+/** Import Lepton stylesheet (Chrome) *****************************************/
+@import url("css/leptonChrome.css");
+
+
+/** Add your custom styles below **********************************************/
+
+/* Enable option to edit bookmark URLs under Add Bookmark (blue star) menu */
+/*
+.editBMPanel_locationRow {
+  display: initial !important;
+}
+*/
+
+/* Disable Email Image/Audio/Video and Set as Desktop Background context menu items */
+#context-sendimage,
+#context-sendvideo,
+#context-sendaudio,
+#context-sep-setbackground,
+#context-setDesktopBackground {
+    display: none !important;
+}
+
+/** Decrease size of the sidebar header **/
+
+#sidebar-header {
+    font-size: 1.2em !important;
+    padding: 2px 6px 2px 3px !important;
+}
+
+    #sidebar-header #sidebar-close {
+        padding: 3px !important;
+    }
+
+        #sidebar-header #sidebar-close .toolbarbutton-icon {
+            width: 14px !important;
+            height: 14px !important;
+            opacity: 0.6 !important;
+        }
+
+/** Disable Recent Bookmarks in pop-up **/
+
+#PanelUI-bookmarks > .panel-subview-body > toolbarseparator:last-of-type,
+#panelMenu_recentBookmarks,
+#panelMenu_bookmarksMenu {
+    display: none;
+}
+
+#PanelUI-bookmarks > .panel-subview-body {
+    flex: unset !important;
+}
+
+/**
+ * Dynamic Horizontal Tabs Toolbar (without animations)
+ * sidebar.verticalTabs: false (with native horizontal tabs)
+ */
+#main-window #TabsToolbar > .toolbar-items {
+    overflow: hidden;
+}
+/* Hidden state: Hide native tabs strip */
+#main-window[titlepreface*="​"] #TabsToolbar > .toolbar-items {
+    height: 0 !important;
+}
+/* Hidden state: Fix z-index of active pinned tabs */
+#main-window[titlepreface*="​"] #tabbrowser-tabs {
+    z-index: 0 !important;
+}
+/* Hidden state: Hide window buttons in tabs-toolbar */
+#main-window[titlepreface*="​"] #TabsToolbar .titlebar-spacer,
+#main-window[titlepreface*="​"] #TabsToolbar .titlebar-buttonbox-container {
+    display: none !important;
+}
+/* [Optional] Uncomment block below to show window buttons in nav-bar (maybe, I didn't test it on non-linux-i3wm env) */
+#main-window[titlepreface*="​"] #nav-bar > .titlebar-buttonbox-container,
+#main-window[titlepreface*="​"] #nav-bar > .titlebar-buttonbox-container > .titlebar-buttonbox {
+    display: flex !important;
+}
+/* [Optional] Uncomment one of the line below if you need space near window buttons */
+/* #main-window[titlepreface*="​"] #nav-bar > .titlebar-spacer[type="pre-tabs"] { display: flex !important; } */
+/* #main-window[titlepreface*="​"] #nav-bar > .titlebar-spacer[type="post-tabs"] { display: flex !important; } */
+
+/* -------------------------- Sidebery Auto-hiding Sidebar ------------------------ */
+
+:root {
+    --autohide-sidebar-extended: 225px; /* width of tab panel shown */
+    --autohide-sidebar-collapsed: 0px; /* width of tab panel hidden */
+    --autohide-sidebar-left-padding: 1px; /* needs to be at least 1px if using 0px collapse width */
+    --sidebar-height: 100vh;
+}
+
+/* width of panel (grey box) (different from width of each tab) */
+#main-window:not([extradragspace="true"])
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) {
+    position: absolute;
+    right: 0px;
+    width: var(--autohide-sidebar-collapsed) !important;
+    min-width: unset !important;
+    z-index: calc(var(--browser-area-z-index-tabbox) + 2);
+    transition: width 0.1s ease-in-out, margin-inline-start 0.25s var(--animation-easing-function), opacity 0.25s ease-in-out, visibility 0s linear !important;
+    /* padding-left: var(--autohide-sidebar-left-padding); */
+    padding-inline-start: var(--autohide-sidebar-left-padding) !important;
+    background-color: transparent !important;
+}
+
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden])
+    #sidebar-header {
+        background-color: var(--sidebar-background-color);
+    }
+
+    /* width of panel (grey box):hover */
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]):hover,
+    /* width of panel header - use if your header is shown */
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+    #sidebar-header,
+    /* width of each tab */
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+    #sidebar {
+        width: calc(var(--autohide-sidebar-extended) + var(--autohide-sidebar-left-padding)) !important;
+        padding-right: var(--autohide-sidebar-left-padding) !important;
+    }
+
+    /* remove sidebar splitter */
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) ~ #sidebar-splitter {
+        display: none !important;
+    }
+
+    /* normal website page right margin */
+    #main-window:not([extradragspace="true"])
+    #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) ~ #tabbrowser-tabbox {
+        margin-right: var(--autohide-sidebar-collapsed) !important;
+    }
+
+/* when youtube full screen */
+#main-window:not([extradragspace="true"])[inFullscreen][inDOMFullscreen]
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) ~ #tabbrowser-tabbox {
+    margin-right: 0 !important;
+}
+
+/* adjust if your sidebery is not tall enough */
+#main-window:not([extradragspace="true"])[inFullscreen]
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"],
+#main-window:not([extradragspace="true"])
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+    height: var(--sidebar-height);
+}
+
+/* --- Advanced Glassmorphism for your Auto-Hiding Sidebery --- */
+#main-window:not([extradragspace="true"]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]):hover {
+    background-color: rgba(17, 17, 27, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensure the sidebar header matches the glass container */
+    #main-window:not([extradragspace="true"]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) #sidebar-header {
+        background-color: transparent !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+
+    /* --- Snappy Tiling-Ready Animation Curve --- */
+    #main-window:not([extradragspace="true"]) #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:not([hidden]) {
+        transition: width 0.15s cubic-bezier(0.1, 0.9, 0.2, 1), background-color 0.2s ease !important;
+    }
+
+/* --- Minimalist Scrollbars for Sidebery --- */
+#sidebar {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+}
+
+    #sidebar scrollbar {
+        -moz-appearance: none !important;
+    }
+
+    #sidebar thumb {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        border-radius: 4px !important;
+    }
+
+        #sidebar thumb:hover {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+        }
